@@ -43,7 +43,7 @@ class MyHomePage extends StatelessWidget {
                   child: ListTile(
                 title: Text(tx.title),
                 subtitle: Text(tx.date.toString()),
-                    leading: Text(tx.money.toString()),
+                leading: Text(tx.money.toString()),
               ));
             }).toList())
           ],
