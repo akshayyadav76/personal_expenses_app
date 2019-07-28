@@ -10,8 +10,21 @@ class UserTransections extends StatefulWidget {
 }
 
 class _UserTransectionsState extends State<UserTransections> {
+  
+  void _addNewTransection(String title, double money)
+  {
+    final newTx = Transections(
+        title: title,
+        money: money,
+        date: DateTime.now(),
+        id: DateTime.now().toString());
 
-  final List<Transections>_userTransection = [
+    setState(() {
+      _userTransection.add(newTx);
+    });
+  }
+
+  final List<Transections> _userTransection = [
     Transections(
         id: "1", title: "buy shoes ", money: 250.5, date: DateTime.now()),
     Transections(
@@ -20,9 +33,11 @@ class _UserTransectionsState extends State<UserTransections> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      NewTransections(),
-      TransectionList(),
-    ],);
+    return Column(
+      children: <Widget>[
+        NewTransections(_addNewTransection),
+        TransectionList(_userTransection),
+      ],
+    );
   }
 }

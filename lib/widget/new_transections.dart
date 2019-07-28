@@ -4,6 +4,9 @@ class NewTransections extends StatelessWidget {
 
   final titleEditor=TextEditingController();
   final moneyEditor=TextEditingController();
+  final Function userMethod;
+
+    NewTransections(this.userMethod);
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +19,10 @@ class NewTransections extends StatelessWidget {
             controller: titleEditor,
           ),
           TextField(
+
             decoration: InputDecoration(labelText: "Enter title"),
             controller: moneyEditor,
+
           ),
           FlatButton(
             child: Text(
@@ -25,6 +30,8 @@ class NewTransections extends StatelessWidget {
                 style: TextStyle(color: Colors.deepPurple)
             ),
             onPressed: (){
+              userMethod(titleEditor.text,double.parse(moneyEditor.text));
+
             },
           )
         ],

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-
-
 import 'model/transections.dart';
-
-
+import 'widget/user_transections.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,8 +18,8 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   final List<Transections> transection = [];
 
-  final titleEditor=TextEditingController();
-  final moneyEditor=TextEditingController();
+//  final titleEditor = TextEditingController();
+//  final moneyEditor = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +27,8 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Flutter App'),
         ),
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
@@ -38,8 +36,8 @@ class MyHomePage extends StatelessWidget {
                 child: Card(
                   child: Text("seeee"),
                 )),
-
+            UserTransections(),
           ],
-        ));
+        )));
   }
 }
