@@ -10,9 +10,7 @@ class UserTransections extends StatefulWidget {
 }
 
 class _UserTransectionsState extends State<UserTransections> {
-  
-  void _addNewTransection(String title, double money)
-  {
+  void _addNewTransection(String title, double money) {
     final newTx = Transections(
         title: title,
         money: money,

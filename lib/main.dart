@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'model/transections.dart';
 import 'widget/user_transections.dart';
 
 void main() => runApp(MyApp());
@@ -16,8 +15,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transections> transection = [];
-
 //  final titleEditor = TextEditingController();
 //  final moneyEditor = TextEditingController();
 
