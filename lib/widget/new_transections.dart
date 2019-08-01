@@ -7,6 +7,14 @@ class NewTransections extends StatelessWidget {
 
   NewTransections(this.userMethod);
 
+  void submitData() {
+    if (titleEditor.text.isEmpty || moneyEditor.text.isEmpty) {
+      return;
+    } else {
+      userMethod(titleEditor.text, double.parse(moneyEditor.text));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,18 +24,22 @@ class NewTransections extends StatelessWidget {
           TextField(
             decoration: InputDecoration(labelText: "Enter title"),
             controller: titleEditor,
+            onSubmitted: (_) {
+              submitData;
+            },
           ),
           TextField(
             decoration: InputDecoration(labelText: "Enter title"),
             controller: moneyEditor,
+            keyboardType: TextInputType.number,
+            onSubmitted: (_) {
+              submitData;
+            },
           ),
           FlatButton(
-            child: Text("Add Transction",
-                style: TextStyle(color: Colors.deepPurple)),
-            onPressed: () {
-              userMethod(titleEditor.text, double.parse(moneyEditor.text));
-            },
-          )
+              child: Text("Add Transction",
+                  style: TextStyle(color: Colors.deepPurple)),
+              onPressed: submitData),
         ],
       ),
     );
