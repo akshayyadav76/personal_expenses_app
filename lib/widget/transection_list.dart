@@ -23,7 +23,7 @@ class TransectionList extends StatelessWidget {
                    ),
                    subtitle: Text(DateFormat('dd/MM/yyyy').format(data[index].date)),
                    leading: Text(
-                     "\$ ${data[index].money}",
+                     "\$ ${data[index].money.toStringAsFixed(2)}",
                      style: TextStyle(
                          fontWeight: FontWeight.w600,
                          fontSize: 18,

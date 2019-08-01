@@ -24,6 +24,8 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Flutter App'),
         ),
+        floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.add),
+       ),
         body: SingleChildScrollView(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

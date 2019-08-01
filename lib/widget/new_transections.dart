@@ -24,8 +24,8 @@ class NewTransections extends StatelessWidget {
           TextField(
             decoration: InputDecoration(labelText: "Enter title"),
             controller: titleEditor,
-            onSubmitted: (_) {
-              submitData;
+            onSubmitted: (_) { 
+              submitData();
             },
           ),
           TextField(
@@ -33,13 +33,14 @@ class NewTransections extends StatelessWidget {
             controller: moneyEditor,
             keyboardType: TextInputType.number,
             onSubmitted: (_) {
-              submitData;
+              submitData();
             },
           ),
           FlatButton(
               child: Text("Add Transction",
                   style: TextStyle(color: Colors.deepPurple)),
-              onPressed: submitData),
+              onPressed: submitData ,
+          ),
         ],
       ),
     );
