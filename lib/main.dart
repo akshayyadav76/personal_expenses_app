@@ -47,10 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   final List<Transections> _userTransection = [
-    Transections(
-        id: "1", title: "buy shoes ", money: 250.5, date: DateTime.now()),
-    Transections(
-        id: "1", title: "buy banana ", money: 20.0, date: DateTime.now()),
+//    Transections(
+//        id: "1", title: "buy shoes ", money: 250.5, date: DateTime.now()),
+//    Transections(
+//        id: "1", title: "buy banana ", money: 20.0, date: DateTime.now()),
   ];
 
 

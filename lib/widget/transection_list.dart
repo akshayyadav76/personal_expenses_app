@@ -12,7 +12,15 @@ class TransectionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 300,
-        child: ListView.builder(
+        child: data.isEmpty? Column(
+          children: <Widget>[
+            Text("no transection add yet!"),
+            SizedBox(height: 25),
+     Container(
+       height: 200,
+       child: Image.asset("assets/images/waiting.png",fit: BoxFit.cover,),)
+          ],
+        ):ListView.builder(
           itemBuilder: (contex, index) {
             return Card(
                 child: ListTile(
