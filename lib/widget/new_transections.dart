@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 
-class NewTransections extends StatelessWidget {
-  final titleEditor = TextEditingController();
-  final moneyEditor = TextEditingController();
+class NewTransections extends StatefulWidget {
   final Function userMethod;
 
   NewTransections(this.userMethod);
+
+  @override
+  _NewTransectionsState createState() => _NewTransectionsState();
+}
+
+class _NewTransectionsState extends State<NewTransections> {
+  final titleEditor = TextEditingController();
+
+  final moneyEditor = TextEditingController();
 
   void submitData() {
     if (titleEditor.text.isEmpty || moneyEditor.text.isEmpty) {
       return;
     } else {
-      userMethod(titleEditor.text, double.parse(moneyEditor.text));
+      widget.userMethod(titleEditor.text, double.parse(moneyEditor.text));
     }
   }
 
@@ -24,7 +31,7 @@ class NewTransections extends StatelessWidget {
           TextField(
             decoration: InputDecoration(labelText: "Enter title"),
             controller: titleEditor,
-            onSubmitted: (_) { 
+            onSubmitted: (_) {
               submitData();
             },
           ),
