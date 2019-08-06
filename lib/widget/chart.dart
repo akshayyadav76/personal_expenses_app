@@ -5,44 +5,57 @@ import '../model/transections.dart';
 import './chart_bars.dart';
 
 class Chart extends StatelessWidget {
+  final List<Transections> recentTransections;
 
-  final List<Transections>recentTransections;
   Chart(this.recentTransections);
 
-   List<Map<String, Object>> get groupedTransectionValue{
-     return List.generate(7, (index){
-       final weekDays=DateTime.now().subtract(Duration(days: index));
-       double amount=0.0;
-       for(int i=0; i < recentTransections.length;i++){
-         if(recentTransections[i].date.day == weekDays.day &&
-         recentTransections[i].date.month == weekDays.month &&
-         recentTransections[i].date.year == weekDays.year
-         ){
-            amount += recentTransections[i].money;
-         }
-       }
+  List<Map<String, Object>> get groupedTransectionValue {
+    return List.generate(7, (index) {
+      final weekDays = DateTime.now().subtract(Duration(days: index));
+      double amount = 0.0;
+      for (int i = 0; i < recentTransections.length; i++) {
+        if (recentTransections[i].date.day == weekDays.day &&
+            recentTransections[i].date.month == weekDays.month &&
+            recentTransections[i].date.year == weekDays.year) {
+          amount += recentTransections[i].money;
+        }
+      }
 
-       return {
-         "day": DateFormat.E().format(weekDays).substring(0,1),
-         "amount": amount,
-       };
-     });
-   }
+      return {
+        "day": DateFormat.E().format(weekDays).substring(0, 1),
+        "amount": amount,
+      };
+    }).reversed.toList();
+  }
 
-   double get amountPercentage{
-     return groupedTransectionValue.fold(0.0, (sum,item){
-       return sum+=item['amount'];
-     });
-   }
+  double get amountPercentage {
+    return groupedTransectionValue.fold(0.0, (sum, item) {
+      return sum += item['amount'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    return Card(elevation: 6,margin: EdgeInsets.all(20),
-    child: Row(
-      children: groupedTransectionValue.map((data){
-        return ChartBars(data["day"],data['amount'],
-            amountPercentage == 0.0 ? 0.0:(data['amount']as double) / amountPercentage);
-      }).toList(),
-    ),);
+    return Card(
+      elevation: 6,
+      margin: EdgeInsets.all(20),
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransectionValue.map((data) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBars(
+                  data["day"],
+                  data['amount'],
+                  amountPercentage == 0.0
+                      ? 0.0
+                      : (data['amount'] as double) / amountPercentage),
+            );
+          }).toList(),
+        ),
+      ),
+    );
   }
 }

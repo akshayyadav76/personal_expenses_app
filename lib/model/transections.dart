@@ -12,3 +12,4 @@ class Transections {
       @required this.money,
       @required this.date});
 }
+

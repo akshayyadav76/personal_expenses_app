@@ -1,54 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class NewTransections extends StatefulWidget {
-  final Function userMethod;
+class NewTransaction extends StatefulWidget {
+  final Function addTx;
 
-  NewTransections(this.userMethod);
+  NewTransaction(this.addTx);
 
   @override
-  _NewTransectionsState createState() => _NewTransectionsState();
+  _NewTransactionState createState() => _NewTransactionState();
 }
 
-class _NewTransectionsState extends State<NewTransections> {
-  final titleEditor = TextEditingController();
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+  DateTime _choseDate;
 
-  final moneyEditor = TextEditingController();
+  void _addtx() {
+    final gettitle = titleController.text;
+    final getamount = amountController.text;
 
-  void submitData() {
-    if (titleEditor.text.isEmpty || moneyEditor.text.isEmpty) {
+    if (gettitle == null || getamount == null) {
       return;
     } else {
-      widget.userMethod(titleEditor.text, double.parse(moneyEditor.text));
+      widget.addTx(gettitle, double.parse(getamount),
+          _choseDate == null ? DateTime.now() : _choseDate);
     }
+  }
+
+  void pickedData() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2019),
+            lastDate: DateTime.now())
+        .then((Date) {
+      if (Date == DateTime.now()) {
+        return;
+      } else {
+        setState(() {
+          _choseDate = Date;
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          TextField(
-            decoration: InputDecoration(labelText: "Enter title"),
-            controller: titleEditor,
-            onSubmitted: (_) {
-              submitData();
-            },
-          ),
-          TextField(
-            decoration: InputDecoration(labelText: "Enter title"),
-            controller: moneyEditor,
-            keyboardType: TextInputType.number,
-            onSubmitted: (_) {
-              submitData();
-            },
-          ),
-          FlatButton(
-              child: Text("Add Transction",
-                  style: TextStyle(color: Colors.deepPurple)),
-              onPressed: submitData ,
-          ),
-        ],
+      elevation: 5,
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(labelText: 'Title'),
+              controller: titleController,
+              // onChanged: (val) {
+              //   titleInput = val;
+              // },
+            ),
+            TextField(
+              decoration: InputDecoration(labelText: 'Amount'),
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              // onChanged: (val) => amountInput = val,
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: Text(_choseDate == null
+                        ? ("Current Data")
+                        : "Picked Date: ${DateFormat.yMd().format(_choseDate)}")),
+                FlatButton(
+                  child: Text("Chose Date"),
+                  onPressed: pickedData,
+                ),
+              ],
+            ),
+            RaisedButton(
+                child: Text('Add Transaction'),
+                textColor: Colors.purple,
+                onPressed: _addtx),
+          ],
+        ),
       ),
     );
   }
