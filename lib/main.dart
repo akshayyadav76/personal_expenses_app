@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'widget/transection_list.dart';
 import './model/transections.dart';
 import './widget/new_transections.dart';
+import './widget/chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -60,6 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
     } );
   }
 
+  List<Transections>  get _sevenPreviousTransactions{
+    return _userTransection.where((tx){
+      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-                width: double.infinity,
-                child: Card(
-                  child: Text("seeee"),
-                )),
+            Chart(_sevenPreviousTransactions),
              TransectionList(_userTransection),
           ],
         )));
