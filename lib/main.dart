@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'widget/transection_list.dart';
 import './model/transections.dart';
 import './widget/new_transections.dart';
 import './widget/chart.dart';
 
-void main() => runApp(MyApp());
+void main(){
+//  SystemChrome.setPreferredOrientations(
+//      [DeviceOrientation.portraitUp,
+//    DeviceOrientation.portraitDown]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -37,6 +43,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+     bool _showChart=false;
+
   void _addNewTransection(String title, double money, DateTime getDate) {
     final newTx = Transections(
         title: title,
@@ -81,12 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appbar=AppBar(
+      title: Text(
+        'Flutter App',
+      ),
+    );
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Flutter App',
-          ),
-        ),
+        appBar: appbar,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _modelSheet(context);
@@ -97,8 +107,24 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_sevenPreviousTransactions),
-            TransectionList(_userTransection, deltetx),
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              Text("Show Chart"),
+              Switch(value: _showChart,onChanged: (value){
+                setState(() {
+                  _showChart =value;
+                });
+              },),
+            ],),
+            _showChart ?
+            Container(
+                height: (MediaQuery.of(context).size.height-
+                    appbar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.65,
+                child: Chart(_sevenPreviousTransactions)):
+            Container(
+                height: (MediaQuery.of(context).size.height-appbar.preferredSize.height
+                    - MediaQuery.of(context).padding.top) * 0.65,
+                child: TransectionList(_userTransection, deltetx)),
           ],
         )));
   }

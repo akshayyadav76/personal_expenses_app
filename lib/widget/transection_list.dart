@@ -11,23 +11,23 @@ class TransectionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 300,
-        child: data.isEmpty
-            ? Column(
+    return  data.isEmpty
+            ? LayoutBuilder(builder: (ct,constrains){
+              return Column(
                 children: <Widget>[
                   Text("no transection add yet!"),
                   SizedBox(height: 25),
                   Container(
-                    height: 200,
+                    height: constrains.maxHeight *0.6,
                     child: Image.asset(
                       "assets/images/waiting.png",
                       fit: BoxFit.cover,
                     ),
                   )
                 ],
-              )
-            : ListView.builder(
+              );
+    })
+        : ListView.builder(
                 itemBuilder: (contex, index) {
                   return Card(
                       child: ListTile(
@@ -57,6 +57,6 @@ class TransectionList extends StatelessWidget {
                   ));
                 },
                 itemCount: data.length,
-              ));
+              );
   }
 }

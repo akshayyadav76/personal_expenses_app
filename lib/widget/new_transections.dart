@@ -19,7 +19,7 @@ class _NewTransactionState extends State<NewTransaction> {
     final gettitle = titleController.text;
     final getamount = amountController.text;
 
-    if (gettitle == null || getamount == null) {
+    if (gettitle.isEmpty == getamount.isEmpty) {
       return;
     } else {
       widget.addTx(gettitle, double.parse(getamount),
