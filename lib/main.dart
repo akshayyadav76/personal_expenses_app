@@ -16,6 +16,7 @@ void main(){
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Flutter App',
       theme: ThemeData(
@@ -90,11 +91,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final landscape =MediaQuery.of(context).orientation == Orientation.landscape;
     final appbar=AppBar(
       title: Text(
         'Flutter App',
       ),
     );
+    final chart=  Container(
+        height: (MediaQuery.of(context).size.height-
+            appbar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,
+        child: Chart(_sevenPreviousTransactions));
+    final txList=Container(
+        height: (MediaQuery.of(context).size.height-appbar.preferredSize.height
+            - MediaQuery.of(context).padding.top) * 0.7,
+        child: TransectionList(_userTransection, deltetx));
     return Scaffold(
         appBar: appbar,
         floatingActionButton: FloatingActionButton(
@@ -107,24 +117,24 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.center,
+
+            if(landscape) Row(mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
               Text("Show Chart"),
+
               Switch(value: _showChart,onChanged: (value){
                 setState(() {
                   _showChart =value;
                 });
               },),
             ],),
-            _showChart ?
-            Container(
-                height: (MediaQuery.of(context).size.height-
-                    appbar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.65,
-                child: Chart(_sevenPreviousTransactions)):
-            Container(
-                height: (MediaQuery.of(context).size.height-appbar.preferredSize.height
-                    - MediaQuery.of(context).padding.top) * 0.65,
-                child: TransectionList(_userTransection, deltetx)),
+            if(!landscape)chart,
+            if(!landscape)txList,
+           if(landscape) _showChart ? Container(
+    height: (MediaQuery.of(context).size.height-
+    appbar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.6,
+    child: Chart(_sevenPreviousTransactions)) : txList,
+
           ],
         )));
   }
